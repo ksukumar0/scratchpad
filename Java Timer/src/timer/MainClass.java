@@ -16,19 +16,31 @@ public class MainClass
 
 	public static void main(String[] args)
 	{
-		int delay = 1000; //1000 milliseconds = 1 second so this is 30 seconds
+		int delay = 10; //1000 milliseconds = 1 second so this is 30 seconds
 	//...Now create your action listener which is what is fired every 30 seconds
 		ActionListener taskPerformer = new ActionListener() {
-		private int count=5;
+		private int ms=100;
+		private int seconds=5;
 
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			if (count >0)
+			if (seconds >= 0)
 			{
-				count--;
-				System.out.printf("%d\n",count);
+				if ( ms <= 0 )
+				{	
+					ms = 100;
+					seconds--;
+				}
+				ms--;
+				if ( seconds >= 0)
+					printtime(seconds,ms);
 			}
+		}
+
+		private void printtime(int seconds2, int ms2)
+		{
+			System.out.printf("%02d:%02d\n",seconds2,ms2);
 		}
 	};
 	new Timer(delay, taskPerformer).start(); //...Create the timer, add the delay which we set to 30 seconds as the first param, add the action listener it is to fire as the second param, them start it running. :)
