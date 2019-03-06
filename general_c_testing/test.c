@@ -4,6 +4,9 @@
 
 #define INDEXMAX 45
 #define NUMBER_OF_TRIES 19
+
+typedef unsigned int uint32_t;
+
 typedef uint32_t TIMER_INT_t;
 char elapsed_time[100] = {};
 static char * convert_to_char( const TIMER_INT_t count )
@@ -66,5 +69,12 @@ int main (int argc, char *argv[])
     *(memtest+124000) = '8';
     free(memtest);
     printf("\n%s\n", convert_to_char(54230)); 
+
+
+    const char *src = "Hello";
+    const char *dest = "Helao";
+    int r = strcmp(src, dest);
+
+    printf("The strcmp %s & %s is: %d",src,dest,r);
     return 0;
 }
