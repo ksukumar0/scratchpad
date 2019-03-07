@@ -8,6 +8,10 @@ OBJS=$(subst .c,.o,$(SRC))
 
 CONST_OBJS = const_test.o
 TEST_OBJS = test.o
+PTR_OBJS = ptr.o
+
+ptr: $(PTR_OBJS)
+	$(CC) -g -o ptr $(PTR_OBJS)
 
 test: $(TEST_OBJS)
 	$(CC) -g -o test $(TEST_OBJS)
