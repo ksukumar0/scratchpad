@@ -47,23 +47,22 @@ int* mul(int a, int b)
     return &ans;
 }
 
-int* (*(finder[2]))(int,int);
-
 void func_ptrs(void)
 {
     int a = 10,b = 11;
-    finder[1] = &add;
-    printf("This is f=add and *f(a,b) is %d\n",*(finder[1](a,b)));
-    finder[2] = &mul;
-    printf("This is f=mul and *f(a,b) is %d\n",*(finder[2](a,b)));
-    printf("The function address is %x\n",finder[2]);
+    int* (*(f[2]))(int,int);
+    f[1] = &add;
+    printf("This is f=add and *f(a,b) is %d\n",*(f[1](a,b)));
+    f[2] = &mul;
+    printf("This is f=mul and *f(a,b) is %d\n",*(f[2](a,b)));
     return;
 }
 
 int main (int argc, char *argv[])
 {
-    arraysVsPtrs();
-    const_ptrs();
-    func_ptrs();
+    //arraysVsPtrs();
+    //const_ptrs();
+    //func_ptrs();
+    print2(3,43,5,6,7);
     return 0;
 }
