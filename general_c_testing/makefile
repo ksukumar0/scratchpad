@@ -14,6 +14,7 @@ UNION_OBJS = union_test.o nodeID.o
 CONST_OBJS = const_test.o
 TEST_OBJS = test.o
 PTR_OBJS = ptr.o
+SORT_OBJS = sorting.o
 
 ptr: $(PTR_OBJS)
 	$(CC) -g -o ptr $(PTR_OBJS)
@@ -27,8 +28,11 @@ const_test: $(CONST_OBJS)
 union_test: $(UNION_OBJS)
 	$(CC) -o union_test $(UNION_OBJS)
 
+sort_test: $(SORT_OBJS)
+	$(CC) -o sort_test $(SORT_OBJS)
+
 %.o: %.c
-	$(CC) -c $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< $(WFLAGS) -o $@
+	$(CC) -g -c $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< $(WFLAGS) -o $@
 	@echo "CC $<"
 
 clean:
