@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "nodeID.h"
+
 #define NUMELEM 11
 
 int compare_ints(const void *lhs, const void *rhs) {
@@ -35,6 +38,7 @@ static void printArray(int *values, char *textToPrintBefore)
 int main() {
     int values[] = {1341,12341,362,841,79,11,434,29,152,178,1};
     printArray(values, "Before Sorting");
+    printf("Static function declared in some other .h file and called from inside main and Returned %d\n",testStaticFcn());
     printf("Lowest value is: %d\n", get_lowest(values));
     printArray(values, "After Sorting");
 }

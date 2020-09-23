@@ -60,6 +60,8 @@ int main(void)
 
     printf("Size of Payload_t is %d\n", sizeof(payload_t));
 
+    printf("Static function called from inside main and Returned %d\n",testStaticFcn());
+
     initNetworkDisc();
     printRTable("===== This is the Table after init =====\n");
 
