@@ -15,6 +15,7 @@ CONST_OBJS = const_test.o
 TEST_OBJS = test.o
 PTR_OBJS = ptr.o
 SORT_OBJS = sorting.o
+SIGNAL_OBJS = signal_test.o
 
 ptr: $(PTR_OBJS)
 	$(CC) -g -o ptr $(PTR_OBJS)
@@ -30,6 +31,9 @@ union_test: $(UNION_OBJS)
 
 sort_test: $(SORT_OBJS)
 	$(CC) -o sort_test $(SORT_OBJS)
+
+signal_test: $(SIGNAL_OBJS)
+	$(CC) -o signal_test $(SIGNAL_OBJS)
 
 %.o: %.c
 	$(CC) -g -c $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< $(WFLAGS) -o $@

@@ -37,6 +37,11 @@ typedef struct nodeID{
     uint16_t rimeID;        // This is the unique MAC address on the mote
 }nodeID_t;
 
+static uint8_t testStaticFcn(void){
+    int event = 0;
+    return -1;
+}
+
 //extern const nodeID_t nodes[];
 
 /**

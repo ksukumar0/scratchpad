@@ -32,11 +32,11 @@ void const_ptrs(void)
 {
     const char c1 = 'a',c2 = 'b';
     char * const h = &c1;
-    printf("c1=%c c2=%c &c1=%x &c2=%x *h=%c h=%x\n",c1,c2,&c1,&c2,*h,h);
+    printf("c1=%c c2=%c &c1=%p &c2=%p *h=%c h=%p\n",c1,c2,&c1,&c2,*h,h);
     // Below causes error
     //h = &c2;
     *h = 'c';
-    printf("c1=%c c2=%c &c1=%x &c2=%x *h=%c h=%x\n",c1,c2,&c1,&c2,*h,h);
+    printf("c1=%c c2=%c &c1=%p &c2=%p *h=%c h=%p\n",c1,c2,&c1,&c2,*h,h);
     return;
 }
 
@@ -54,16 +54,33 @@ int* mul(int a, int b)
     return &ans;
 }
 
-int* (*(finder[2]))(int,int);
-
 void func_ptrs(void)
 {
-    int a = 10,b = 11;
-    finder[1] = &add;
-    printf("This is f=add and *f(a,b) is %d\n",*(finder[1](a,b)));
-    finder[2] = &mul;
-    printf("This is f=mul and *f(a,b) is %d\n",*(finder[2](a,b)));
-    printf("The function address is %x\n",finder[2]);
+    struct test
+    {
+        int* (*(finder[2]))(int,int);
+        int a,b;
+    }test_ptr;
+
+    test_ptr.a = 10;
+    test_ptr.b = 11;
+    test_ptr.finder[0] = &add;
+    printf("This is f=add and *f(a,b) is %d\n",*(test_ptr.finder[0](test_ptr.a,test_ptr.b)));
+    test_ptr.finder[1] = &mul;
+    printf("This is f=mul and *f(a,b) is %d\n",*(test_ptr.finder[1](test_ptr.a,test_ptr.b)));
+
+    printf("Addresses of a and b are %p and %p\n",&test_ptr.a,&test_ptr.b);
+    printf("The function address of finder[0] is %p\n",&test_ptr.finder[0]);
+    printf("The function address of finder[1] is %p\n",&test_ptr.finder[1]);
+    printf("The function address of finder[2] is %p\n",&test_ptr.finder[2]);
+    printf("The function address of finder[3] is %p\n",&test_ptr.finder[3]);
+    printf("Values of a and b are %d and %d\n",test_ptr.a,test_ptr.b);
+
+    test_ptr.finder[2] = (int* (*) (int,int))0x0000001200000023;
+    printf("Values of a and b are %d and %d\n",test_ptr.a,test_ptr.b);
+
+    printf("The function address of finder[2] is %p\n",&test_ptr.finder[2]);
+    printf("The function address of finder[3] is %p\n",&test_ptr.finder[3]);
     return;
 }
 
