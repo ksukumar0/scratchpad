@@ -1,3 +1,4 @@
+CC = gcc
 app = dlopen_sample
 lib = libcat.so libdog.so
 
