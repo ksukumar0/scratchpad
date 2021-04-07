@@ -5,6 +5,14 @@
 #define INDEXMAX 45
 #define NUMBER_OF_TRIES 19
 
+typedef struct _COMMON_BUFF_REQUEST_EX
+{
+   unsigned int uIndex;         // index of buffer, i.e. PCIe DMA source
+   unsigned int uSize;          // size of the buffer
+   unsigned int uType;          // link type, 0 up, 1 down
+   // i.e. FPGA configuration using burst mode
+} COMMON_BUFF_REQUEST_EX, *PCOMMON_BUFF_REQUEST_EX;
+
 typedef unsigned int uint32_t;
 
 typedef uint32_t TIMER_INT_t;
@@ -37,6 +45,11 @@ static void string_copy( char *dst, const char *src)
 int main (int argc, char *argv[])
 {
     char str[] = "Hi there";
+    PCOMMON_BUFF_REQUEST_EX p;
+    COMMON_BUFF_REQUEST_EX p2;
+    p2.uIndex = 1;
+    p = &p2;
+    printf("p2.uIndex is %d\n", p->uIndex);
 
     struct s {
         uint32_t a;

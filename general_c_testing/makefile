@@ -1,9 +1,10 @@
 CC=gcc
-CFLAGS= -I
-OFLAGS = -O2
+CFLAGS= #-fno-stack-protector
+OFLAGS = #-O2
 #STDFLAGS = -std=c++14
-ifdef WFLAGS 
-	echo $(WFLAGS)
+
+ifdef WFLAGS
+	${WFLAGS}
 	WFLAGS= -Werror -Wall
 endif
 
@@ -18,10 +19,10 @@ SORT_OBJS = sorting.o
 SIGNAL_OBJS = signal_test.o
 
 ptr: $(PTR_OBJS)
-	$(CC) -g -o ptr $(PTR_OBJS)
+	$(CC) -o ptr $(PTR_OBJS)
 
 test: $(TEST_OBJS)
-	$(CC) -g -o test $(TEST_OBJS)
+	$(CC) -o test $(TEST_OBJS)
 
 const_test: $(CONST_OBJS)
 	$(CC) -o const_test $(CONST_OBJS)
@@ -36,7 +37,7 @@ signal_test: $(SIGNAL_OBJS)
 	$(CC) -o signal_test $(SIGNAL_OBJS)
 
 %.o: %.c
-	$(CC) -g -c $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< $(WFLAGS) -o $@
+	$(CC) -c -g $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< $(WFLAGS) -o $@
 	@echo "CC $<"
 
 clean:
