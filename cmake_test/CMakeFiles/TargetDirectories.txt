@@ -1,2 +1,0 @@
-/home/ck/Projects/Software/C_scrathpad/cmake_test/CMakeFiles/rebuild_cache.dir
-/home/ck/Projects/Software/C_scrathpad/cmake_test/CMakeFiles/edit_cache.dir

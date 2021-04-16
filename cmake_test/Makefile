@@ -129,6 +129,46 @@ depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named Tutorial
+
+# Build rule for target.
+Tutorial: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Tutorial
+.PHONY : Tutorial
+
+# fast build rule for target.
+Tutorial/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/build
+.PHONY : Tutorial/fast
+
+tutorial.o: tutorial.cpp.o
+
+.PHONY : tutorial.o
+
+# target to build an object file
+tutorial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/tutorial.cpp.o
+.PHONY : tutorial.cpp.o
+
+tutorial.i: tutorial.cpp.i
+
+.PHONY : tutorial.i
+
+# target to preprocess a source file
+tutorial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/tutorial.cpp.i
+.PHONY : tutorial.cpp.i
+
+tutorial.s: tutorial.cpp.s
+
+.PHONY : tutorial.s
+
+# target to generate assembly for a file
+tutorial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/tutorial.cpp.s
+.PHONY : tutorial.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -137,6 +177,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... Tutorial"
+	@echo "... tutorial.o"
+	@echo "... tutorial.i"
+	@echo "... tutorial.s"
 .PHONY : help
 
 
