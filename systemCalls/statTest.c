@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int
 main(int argc, char *argv[])
@@ -49,8 +50,11 @@ main(int argc, char *argv[])
             (long long) sb.st_blocks);
 
    printf("Last status change:       %s", ctime(&sb.st_ctime));
-    printf("Last file access:         %s", ctime(&sb.st_atime));
-    printf("Last file modification:   %s", ctime(&sb.st_mtime));
+   printf("Last file access:         %s", ctime(&sb.st_atime));
+   printf("Last file modification:   %s", ctime(&sb.st_mtime));
+
+   int retval = access(argv[1], !W_OK);
+   printf("Value of Access:          %d\n",retval);
 
    exit(EXIT_SUCCESS);
 }
