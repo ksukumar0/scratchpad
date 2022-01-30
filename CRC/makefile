@@ -9,7 +9,7 @@ crc: $(OBJS)
 	$(CC) -o crc $(OBJS)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< -o $@
+	$(CC) -c -g $(CFLAGS) $(STDFLAGS) $(OFLAGS) $< -o $@
 
 clean:
 	rm -rf *.o
