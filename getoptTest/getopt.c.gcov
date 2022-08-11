@@ -1,0 +1,144 @@
+        -:    0:Source:getopt.c
+        -:    0:Graph:getopt.gcno
+        -:    0:Data:getopt.gcda
+        -:    0:Runs:1
+        -:    1:#include <stdio.h>
+        -:    2:
+        -:    3:// Program to illustrate the getopt() 
+        -:    4:// function in C 
+        -:    5:
+        -:    6:#include <stdio.h> 
+        -:    7:#include <unistd.h> 
+        -:    8:#include <pthread.h>
+        -:    9:
+        -:   10:static int count = 0;
+        -:   11:
+        -:   12:struct argPassStruct{
+        -:   13:    int argc;
+        -:   14:    char **argv;
+        -:   15:};
+        -:   16:
+function printArgs called 8 returned 100% blocks executed 100%
+        8:   17:void printArgs(void *ptr)
+        -:   18:{
+        8:   19:    struct argPassStruct *s = (struct argPassStruct *) ptr;
+        8:   20:    char **argv = s->argv;
+        8:   21:    printf("Argc= %d\nArgv: \n",s->argc);
+call    0 returned 100%
+        -:   22:    //printf("Argc= %d\nArgv= %s\n",s->argc, *(argv));
+        8:   23:    int i = 0;
+       16:   24:    while(argv[i] != 0)
+branch  0 taken 50%
+branch  1 taken 50% (fallthrough)
+        -:   25:    {
+        -:   26:        //printf("%s\n",argv[i]);
+        8:   27:        i++;
+        -:   28:    }
+        -:   29:
+        8:   30:}
+        -:   31:
+        -:   32:pthread_mutex_t lock;
+        -:   33:
+function fnptr called 8 returned 100% blocks executed 40%
+        8:   34:void *fnptr(void *ptr)
+        -:   35:{
+        8:   36:    pthread_mutex_lock(&lock);
+call    0 returned 100%
+        8:   37:    optind = 1;
+        8:   38:    count++;
+        8:   39:    printf("Thread ID: %ld\n", pthread_self());
+call    0 returned 100%
+        -:   40:
+        8:   41:    int argc = ((struct argPassStruct *) ptr)->argc;
+        8:   42:    char **argv = ((struct argPassStruct *) ptr)->argv;
+        8:   43:    printArgs(ptr);
+call    0 returned 100%
+        -:   44:    int opt;
+        -:   45:    // put ':' in the starting of the 
+        -:   46:    // string so that program can
+        -:   47:    //distinguish between '?' and ':' 
+        -:   48:	//original
+        -:   49:	//while((opt = getopt(argc, argv, “:if:lrx”)) != -1)
+       16:   50:	while((opt = getopt(argc, argv, ":if:lrxo::")) != -1 )
+branch  0 taken 0%
+branch  1 taken 100% (fallthrough)
+        -:   51:    {
+    #####:   52:        printf("opt: %c\n",(char) opt);
+call    0 never executed
+    #####:   53:        switch(opt)
+branch  0 never executed
+branch  1 never executed
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   54:        {
+    #####:   55:            case 'i':
+        -:   56:            case 'l':
+        -:   57:            case 'r':
+    #####:   58:                printf("option: %c\n", opt);
+call    0 never executed
+    #####:   59:                break;
+    #####:   60:            case 'f':
+    #####:   61:                printf("filename: %s\n", optarg);
+call    0 never executed
+    #####:   62:                break;
+    #####:   63:            case ':':
+    #####:   64:                   printf("option needs a value\n");
+call    0 never executed
+    #####:   65:                   break;
+    #####:   66:            case '?':
+    #####:   67:                   printf("unknown option: %c\n", optopt);
+call    0 never executed
+    #####:   68:                   break;
+    #####:   69:            case 'o':
+    #####:   70:                   printf("option: o\nArgument:%s\n",optarg);
+call    0 never executed
+    #####:   71:                   break;
+        -:   72:        }
+        8:   73:    }
+call    0 returned 100%
+        8:   74:    pthread_mutex_unlock(&lock);
+call    0 returned 100%
+        -:   75:
+        -:   76:    // optind is for the extra arguments 
+        -:   77:    // which are not parsed 
+        -:   78:    //for(; optind < argc; optind++){
+        -:   79:    //    printf("extra arguments: %s\n", argv[optind]);
+        -:   80:    //}
+        -:   81:
+        -:   82:    //printf("optind: %d\nopterr: %d\noptopt: %d\nopt:%d\n",optind,opterr,optopt,opt);
+        8:   83:}
+        -:   84:
+function main called 1 returned 100% blocks executed 100%
+        1:   85:int main(int argc, char *argv[])
+        -:   86:{
+        -:   87:#define MAX_WORKER_THREADS 8
+        -:   88:    pthread_t thread[MAX_WORKER_THREADS];
+        -:   89:    struct argPassStruct s[MAX_WORKER_THREADS];
+        -:   90:    //char **av = {"./getopt","-f","file.txt","-i","-oargs"};
+        1:   91:    char av[] = "-f";
+        -:   92:    int i;
+        1:   93:    printf("Creating %d Threads\n", MAX_WORKER_THREADS);
+call    0 returned 100%
+        9:   94:    for(i=0;i<MAX_WORKER_THREADS;i++)
+branch  0 taken 89%
+branch  1 taken 11% (fallthrough)
+        -:   95:    {
+        8:   96:        s[i].argc = argc;
+        8:   97:        s[i].argv = argv;
+        8:   98:        pthread_create(&thread[i],NULL,fnptr,(void *) &s[i]);
+call    0 returned 100%
+        -:   99:    }
+        9:  100:    for(i=0;i<MAX_WORKER_THREADS;i++)
+branch  0 taken 89%
+branch  1 taken 11% (fallthrough)
+        -:  101:    {
+        8:  102:        pthread_join(thread[i], 0);
+call    0 returned 100%
+        -:  103:    }
+        1:  104:    printf("total number of threads are %d\n", count);
+call    0 returned 100%
+        1:  105:    return 0;
+        -:  106:}
+        -:  107:

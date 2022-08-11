@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I.
+CFLAGS=-I. -fprofile-arcs -ftest-coverage
 DEPS = getopt.h
 OBJ = getopt.o
 
