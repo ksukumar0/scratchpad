@@ -18,4 +18,7 @@ run: all
 	./$(app) dog
 	-./$(app) bear
 
+$(app): 
+	$(CC) $(CFLAGS) dlopen_sample.c -o $@ -Wl,-rpath=/lib/x86_64-linux-gnu/ $(LDFLAGS)
+
 $(lib): animal.h
