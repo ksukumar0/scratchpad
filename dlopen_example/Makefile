@@ -3,7 +3,7 @@ app = dlopen_sample
 lib = libcat.so libdog.so
 
 CFLAGS = -Wall -ansi -pedantic
-LDFLAGS = -ldl
+LDLIBS = -ldl
 
 all: $(app) $(lib)
 
@@ -19,6 +19,6 @@ run: all
 	-./$(app) bear
 
 $(app): 
-	$(CC) $(CFLAGS) dlopen_sample.c -o $@ -Wl,-rpath=/lib/x86_64-linux-gnu/ $(LDFLAGS)
+	$(CC) $(CFLAGS) dlopen_sample.c -o $@ -Wl,-rpath=/lib/x86_64-linux-gnu/ $(LDLIBS)
 
 $(lib): animal.h
