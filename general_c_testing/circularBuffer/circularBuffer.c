@@ -1,5 +1,6 @@
 #include "circularBuffer.h"
 #include <string.h>
+#include <stdio.h>
 
 static circular_buffer_t buf;
 
@@ -52,4 +53,16 @@ hm_srt_battery_buffer_put_item(voltage_mV_t voltage_mv)
 circular_buffer_t * getArrayPtr(void)
 {
     return &buf;
+}
+
+void printArray(void)
+{
+    int i;
+    for(i=0;i<NUMBER_OF_VOLTAGE_MEASUREMENTS;i++)
+    {
+        printf("%d ",buf.voltage_measurements[i]);
+    }
+    printf("\nHead: %ld",buf.head);
+    printf("\nFull: %d",buf.full);
+    printf("\nSize: %d\n",hm_srt_battery_buffer_get_size());
 }

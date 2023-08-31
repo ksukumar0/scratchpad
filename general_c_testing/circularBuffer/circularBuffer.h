@@ -50,6 +50,7 @@ uint32_t
 hm_srt_battery_buffer_put_item(voltage_mV_t voltage_mv);
 
 
+void printArray(void);
 circular_buffer_t * getArrayPtr(void);
 
 
